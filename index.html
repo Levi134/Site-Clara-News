@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Clara Moreira</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI',sans-serif;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    background:
+    linear-gradient(
+    rgb(0, 0, 0),
+    rgba(14, 0, 0, 0.178)
+    ),
+    url("https://i.postimg.cc/LspZx9Xd/Whats-App-Image-2026-06-05-at-04-22-13.jpg");
+    background-size:cover;
+    background-position:center;
+    background-attachment:fixed;
+    color :#ffffff
+}
+
+/* MENU */
+
+header{
+    position:fixed;
+    top:0;
+    width:100%;
+    z-index:1000;
+    background:rgba(0,0,0,0.7);
+    backdrop-filter:blur(15px);
+    border-bottom:1px solid rgba(255,255,255,0.08);
+}
+
+nav{
+    max-width:1300px;
+    margin:auto;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:18px 30px;
+}
+
+.logo{
+    color: #ffffff;
+    font-size:29px;
+    font-weight:800;
+}
+
+nav ul{
+    display:flex;
+    gap:25px;
+    list-style:none;
+}
+
+nav a{
+    color:#8607db;
+    text-decoration:none;
+    transition:0.3s;
+}
+
+nav a:hover{
+    color:#00ff2a;
+}
+
+/* HERO */
+
+.hero{
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    padding:30px;
+}
+
+.hero h1{
+    font-size:90px;
+    margin-bottom:15px;
+    text-shadow:0 0 30px rgba(0, 0, 0, 0.5);
+    animation:fade 2s;
+}
+
+.hero p{
+    max-width:800px;
+    font-size:22px;
+    opacity:.95;
+    line-height:1.6;
+}
+
+@keyframes fade{
+    from{
+        opacity:0;
+        transform:translateY(-40px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+.hero-btn{
+    margin-top:35px;
+}
+
+/* BOTÕES */
+
+.btn{
+    background:#8607db;
+    border:none;
+    color:white;
+    padding:12px 24px;
+    margin:8px;
+    border-radius:10px;
+    cursor:pointer;
+    font-size:15px;
+    font-weight:600;
+    transition:.3s;
+}
+
+.btn:hover{
+    transform:translateY(-3px);
+    background:#000000;
+}
+
+/* RELÓGIO */
+
+.clock{
+    text-align:center;
+    font-size:28px;
+    font-weight:bold;
+    margin-bottom:50px;
+}
+
+/* CARDS GERAIS */
+
+.container{
+    width:90%;
+    max-width:1200px;
+    margin:auto;
+}
+
+.glass{
+    background:rgba(255,255,255,0.08);
+    backdrop-filter:blur(15px);
+    border:1px solid rgba(255,255,255,0.1);
+    border-radius:20px;
+    padding:30px;
+    margin-bottom:40px;
+}
+
+.glass h2{
+    color:#8607db;
+    margin-bottom:15px;
+}
+
+/* ESTATÍSTICAS */
+
+.stats{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:25px;
+    margin:50px auto;
+}
+
+.stat{
+    width:260px;
+    text-align:center;
+}
+
+.numero{
+    font-size:42px;
+    color:#ffffff;
+    font-weight:bold;
+}
+
+/* ARTISTAS */
+
+.titulo{
+    text-align:center;
+    font-size:45px;
+    margin:70px 0 40px;
+}
+
+.artistas{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:25px;
+}
+
+.card{
+    width:280px;
+    background:rgba(255,255,255,0.08);
+    backdrop-filter:blur(15px);
+    border:1px solid rgba(255,255,255,0.1);
+    border-radius:20px;
+    overflow:hidden;
+    transition:.3s;
+}
+
+.card:hover{
+    transform:translateY(-8px);
+}
+
+.card img{
+    width:100%;
+    height:250px;
+    object-fit:cover;
+}
+
+.card h3{
+    padding:15px;
+    color:#864c9cbd;
+}
+
+.card p{
+    padding:0 15px 20px;
+    line-height:1.5;
+}
+
+/* NOTÍCIAS */
+
+.news-box{
+    text-align:center;
+    font-size:20px;
+    min-height:70px;
+}
+
+/* RODAPÉ */
+
+footer{
+    margin-top:80px;
+    background:rgba(0,0,0,0.8);
+    text-align:center;
+    padding:40px;
+}
+
+footer p{
+    margin:10px 0;
+}
+
+/* BOTÃO TOPO */
+
+#topo{
+    position:fixed;
+    right:20px;
+    bottom:20px;
+    width:50px;
+    height:50px;
+    border:none;
+    border-radius:50%;
+    background:#000000;
+    color:#87118b;
+    font-size:22px;
+    cursor:pointer;
+}
+
+/* RESPONSIVO */
+
+@media(max-width:768px){
+
+.hero h1{
+    font-size:50px;
+}
+
+.hero p{
+    font-size:18px;
+}
+
+nav{
+    flex-direction:column;
+    gap:15px;
+}
+
+nav ul{
+    flex-wrap:wrap;
+    justify-content:center;
+}
+
+}
+
+</style>
+</head>
+<body>
+
+<header>
+<nav>
+
+<div class="logo">Clara News 💜</div>
+
+<ul>
+<li><a href="#inicio">Início</a></li>
+<li><a href="#sobre">Sobre</a></li>
+</ul>
+
+</nav>
+</header>
+
+<section class="hero" id="inicio">
+
+<h1>Clara Moreira</h1>
+
+<p>
+Acompanhe as principais novidades sobre a Clara Moreira,
+ suas maiores tendencias nas atualidades!!!
+</p>
+
+<div class="hero-btn">
+<button class="btn" onclick="window.open('https://www.instagram.com/clarasmoreira_/')">
+Instagram oficial
+</button>
+</div>
+
+</section>
+
+<div class="clock" id="clock"></div>
+
+<div class="container">
+
+<div class="glass" id="sobre">
+<h2>Um pouco sobre Clara Moreira</h2>
+
+<p>
+Considerada umas das mulheres mais bonitas do Brasil, de longe sempre 
+conquistando olhares, e aproximando as pessoas com seu jeito carinhoso e meigo.
+Um grande exemplo de Mulher e de boa pessoa.
+</p>
+
+</div>
+
+<div class="stats">
+
+<div class="glass stat">
+<div class="numero" id="usuarios">0</div>
+Acesso ao perfil
+do instagram
+</div>
+
+<div class="glass stat">
+<div class="numero" id="musicas">0</div>
+Tanto de vezes que o Levi ficou saudades
+</div>
+
+<div class="glass stat">
+<div class="numero" id="podcasts">0</div>
+Apresentaçoes ja exibidas
+</div>
+
+</div>
+
+<h2 class="titulo" id="artistas">
+Top 6 Fotos Mais Lindas!!!
+</h2>
+
+<div class="artistas">
+
+<div class="card">
+<img src="https://i.postimg.cc/5yc70LnS/1.jpg">
+<h3>Na represa</h3>
+<p>Uma foto inigualavel de Clara Coreira em 
+    uma represa ao entardecer da noite!
+</p>
+</div>
+
+<div class="card">
+<img src="https://i.postimg.cc/1RJVysXG/2.jpg">
+<h3>RoofTop</h3>
+<p>Uma linda foto de Clara Coreira em um dos seus primeiros
+    encontros com o levi no rooftop ( um bar Renomado de 
+    PP city)!
+</p>
+</div>
+
+<div class="card">
+<img src="https://i.postimg.cc/1XHjj4rt/3.jpg">
+<h3>Câmera
+</h3>
+<p>Clara em uma paz tremenda tirando uma linda foto em sua câmera digital!</p>
+</div>
+
+<div class="card">
+<img src="https://i.postimg.cc/kgkfwxPH/4.jpg">
+<h3>Uma Modelo???</h3>
+<p>A rainha da beleza, clara posta uma foto com tão linda que passa longe de compações com modelos! </p>
+</div>
+
+<div class="card">
+<img src="https://i.postimg.cc/KYDBLLGw/5.jpg">
+<h3>Descontraída</h3>
+<p>Considera uma de suas fotos mais bonitas e explêndidas</p>
+</div>
+
+<div class="card">
+<img src="https://i.postimg.cc/hvzXC7B8/6.jpg">
+<h3>Viagem</h3>
+<p>Em uma simples viagem Clara Moreira conquista corações a propria foto</p>
+</div>
+
+<div class="card">
+<img src="https://i.postimg.cc/NML7R4N0/levi.jpg">
+<h3>Levi Lira</h3>
+<p>desenvolvedor oficial do site de Clara News</p>
+</div>
+
+</div>
+
+<h2 class="titulo" id="noticias">
+Últimas Notícias Sobre Clara Moreira
+</h2>
+
+<div class="glass news-box">
+<p id="newsText">
+Clara continua crescendo em redes socias, e nas maiores Midias.
+</p>
+</div>
+
+<center style="margin-top:40px;">
+
+<button class="btn" onclick="alert('Muito obrigado pela visita! Site desenvolvido por Levi.')">
+Agradecimentos
+</button>
+
+<button class="btn" onclick="window.open('https://support.spotify.com/br/')">
+Contato/suporte ao site
+</button>
+
+</center>
+
+</div>
+
+<footer>
+
+<h2>Clara Moreira News</h2>
+
+<p>
+Portal informativo desenvolvido para apenas teste de leviiiiiii
+</p>
+
+<p>
+© 2026 Clara News • Desenvolvido por Levi
+</p>
+
+</footer>
+
+<button id="topo" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+↑
+</button>
+
+<script>
+
+/* RELÓGIO */
+
+function atualizarRelogio(){
+const agora = new Date();
+
+document.getElementById("clock").innerHTML =
+" ! " + agora.toLocaleTimeString("pt-BR");
+}
+
+setInterval(atualizarRelogio,1000);
+atualizarRelogio();
+
+/* CONTADORES */
+
+let usuarios=0;
+let musicas=0;
+let podcasts=0;
+
+const contador=setInterval(()=>{
+
+if(usuarios<72){
+usuarios+=2;
+document.getElementById("usuarios").innerHTML=usuarios+"K+";
+}
+
+if(musicas<987){
+musicas++;
+document.getElementById("musicas").innerHTML=musicas+"K+";
+}
+
+if(podcasts<13){
+podcasts++;
+document.getElementById("podcasts").innerHTML=podcasts+"K+";
+}
+
+if(usuarios>=241 && musicas>=174 && podcasts>=5){
+clearInterval(contador);
+}
+
+},20);
+
+/* NOTÍCIAS */
+
+const noticias=[
+"Clara ganha no concurso de beleza.",
+"Considerada a mulher mais bela.",
+"Conquista milhares de corações pelo brasil.",
+"Alcança a marca de 72K em suas rede sociais.",
+"LEVI/CLARA",
+]
+
+let indice=0;
+
+setInterval(()=>{
+
+indice++;
+
+if(indice>=noticias.length){
+indice=0;
+}
+
+document.getElementById("newsText").innerHTML=noticias[indice];
+
+},4000);
+
+</script>
+
+</body>
+</html>
