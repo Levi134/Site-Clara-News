@@ -3,16 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Clara Moreira</title>
+<title>Clara Moreira - Portal de Conteúdo Premium</title>
 
 <style>
-
+/* =========================================================
+   1. ARQUITETURA DE DESIGN CORE (RESET & VARIAVEIS)
+   ========================================================= */
 *{
     margin:0;
     padding:0;
     box-sizing:border-box;
-    font-family:'Segoe UI',sans-serif;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 html{
@@ -20,515 +21,1144 @@ html{
 }
 
 body{
-    background:
-    linear-gradient(
-    rgb(0, 0, 0),
-    rgba(14, 0, 0, 0.178)
-    ),
-    url("https://i.postimg.cc/8PcDbdTz/Whats-App-Image-2026-06-05-at-04-22-13.jpg");
+    background: linear-gradient(rgba(0, 0, 0, 0.9), rgba(18, 2, 28, 0.85)), 
+                url("https://i.postimg.cc/LspZx9Xd/Whats-App-Image-2026-06-05-at-04-22-13.jpg");
     background-size:cover;
     background-position:center;
     background-attachment:fixed;
-    color :#ffffff
+    color :#ffffff;
+    overflow-x: hidden;
 }
 
-/* MENU */
+.container{
+    width:92%;
+    max-width:1200px;
+    margin:auto;
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+
+.glass{
+    background:rgba(255, 255, 255, 0.03);
+    backdrop-filter:blur(20px);
+    -webkit-backdrop-filter:blur(20px);
+    border:1px solid rgba(255, 255, 255, 0.08);
+    border-radius:24px;
+    padding:40px;
+    margin-bottom:40px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.glass:hover {
+    border-color: rgba(167, 34, 255, 0.4);
+    box-shadow: 0 20px 40px rgba(134, 7, 219, 0.2);
+    transform: translateY(-2px);
+}
+
+.titulo{
+    text-align:center;
+    font-size:46px;
+    font-weight: 800;
+    margin:60px 0 40px;
+    position: relative;
+    background: linear-gradient(135deg, #ffffff 30%, #b353f2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: 1px;
+}
+
+.titulo::after {
+    content: '';
+    display: block;
+    width: 80px;
+    height: 4px;
+    background: linear-gradient(90deg, #a722ff, #f5f57b);
+    margin: 18px auto 0;
+    border-radius: 4px;
+}
+
+.btn{
+    background: linear-gradient(135deg, #f5f57b, #a722ff);
+    border: none;
+    color: #000000;
+    padding: 15px 32px;
+    margin: 10px;
+    border-radius: 14px;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 18px rgba(134, 7, 219, 0.35);
+}
+
+.btn:hover{
+    transform: translateY(-4px) scale(1.02);
+    background: linear-gradient(135deg, #fffb00, #b91600);
+    color: #ffffff;
+    box-shadow: 0 8px 25px rgba(255, 255, 255, 0.3);
+}
+
+.btn-secundario {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+}
+
+.btn-secundario:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: #b353f2;
+}
+
+/* =========================================================
+   2. SISTEMA DE AUTENTICAÇÃO (LOGIN CLEAN)
+   ========================================================= */
+#login-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(4, 1, 8, 0.95);
+    backdrop-filter: blur(30px);
+    -webkit-backdrop-filter: blur(30px);
+    z-index: 10000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.6s ease;
+}
+
+.login-box {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-radius: 28px;
+    padding: 50px 40px;
+    width: 92%;
+    max-width: 440px;
+    text-align: center;
+    box-shadow: 0 25px 60px rgba(134, 7, 219, 0.25);
+}
+
+.login-box h2 {
+    font-size: 36px;
+    font-weight: 800;
+    margin-bottom: 10px;
+    background: linear-gradient(45deg, #f5f57b, #9e0eff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.input-container {
+    margin-bottom: 22px;
+    text-align: left;
+}
+
+.input-container label {
+    display: block;
+    font-size: 11px;
+    color: #b353f2;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-weight: 600;
+}
+
+.input-container input, .input-container textarea {
+    width: 100%;
+    padding: 16px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 14px;
+    color: white;
+    font-size: 15px;
+    outline: none;
+    transition: 0.3s ease;
+}
+
+.input-container input:focus, .input-container textarea:focus {
+    border-color: #a722ff;
+    background: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 20px rgba(167, 34, 255, 0.4);
+}
+
+/* =========================================================
+   3. MENUS E BARRA DE NAVEGAÇÃO
+   ========================================================= */
+#main-content {
+    opacity: 0;
+    display: none;
+    transition: opacity 0.8s ease;
+}
 
 header{
     position:fixed;
     top:0;
     width:100%;
-    z-index:1000;
-    background:rgba(0,0,0,0.7);
-    backdrop-filter:blur(15px);
-    border-bottom:1px solid rgba(255,255,255,0.08);
+    z-index:9000;
+    background:rgba(5, 1, 10, 0.85);
+    backdrop-filter:blur(25px);
+    -webkit-backdrop-filter:blur(25px);
+    border-bottom:1px solid rgba(255,255,255,0.05);
 }
 
 nav{
-    max-width:1300px;
+    max-width:1400px;
     margin:auto;
     display:flex;
     justify-content:space-between;
     align-items:center;
-    padding:18px 30px;
+    padding:20px 40px;
 }
 
 .logo{
     color: #ffffff;
-    font-size:29px;
-    font-weight:800;
+    font-size:28px;
+    font-weight:900;
+    background: linear-gradient(45deg, #fff, #b353f2);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 nav ul{
     display:flex;
-    gap:25px;
+    gap:15px;
     list-style:none;
+    align-items: center;
 }
 
 nav a{
-    color:#8607db;
+    color: rgba(255, 255, 255, 0.7);
     text-decoration:none;
-    transition:0.3s;
+    font-weight: 600;
+    font-size: 15px;
+    padding: 10px 16px;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    cursor: pointer;
 }
 
-nav a:hover{
-    color:#00ff2a;
+nav a.active-link, nav a:hover {
+    color: #fffb00;
+    background: rgba(167, 34, 255, 0.15);
+    box-shadow: inset 0 0 10px rgba(167, 34, 255, 0.2);
 }
 
-/* HERO */
+.menu-toggle {
+    display: none;
+    flex-direction: column;
+    gap: 6px;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
 
+.menu-toggle span {
+    width: 28px;
+    height: 3px;
+    background: #ffffff;
+    border-radius: 2px;
+    transition: 0.3s;
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active-tab {
+    display: block;
+    animation: slideUp 0.6s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+}
+
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* =========================================================
+   4. SEÇÕES DO SITE (HERO, TIMELINE, STATS, GALERIA)
+   ========================================================= */
 .hero{
-    min-height:100vh;
+    min-height:75vh;
     display:flex;
     flex-direction:column;
     justify-content:center;
     align-items:center;
     text-align:center;
-    padding:30px;
+    padding:40px;
+    margin-top: 90px;
 }
 
 .hero h1{
-    font-size:90px;
-    margin-bottom:15px;
-    text-shadow:0 0 30px rgba(0, 0, 0, 0.5);
-    animation:fade 2s;
+    font-size:95px;
+    font-weight: 900;
+    background: linear-gradient(45deg, #f5f57b, #9e0eff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 20px;
+    filter: drop-shadow(0 0 25px rgba(158, 14, 255, 0.25));
 }
 
 .hero p{
-    max-width:800px;
-    font-size:22px;
-    opacity:.95;
-    line-height:1.6;
+    max-width: 750px;
+    font-size: 24px;
+    line-height: 1.6;
+    color: rgba(255,255,255,0.9);
 }
-
-@keyframes fade{
-    from{
-        opacity:0;
-        transform:translateY(-40px);
-    }
-    to{
-        opacity:1;
-        transform:translateY(0);
-    }
-}
-
-.hero-btn{
-    margin-top:35px;
-}
-
-/* BOTÕES */
-
-.btn{
-    background:#8607db;
-    border:none;
-    color:white;
-    padding:12px 24px;
-    margin:8px;
-    border-radius:10px;
-    cursor:pointer;
-    font-size:15px;
-    font-weight:600;
-    transition:.3s;
-}
-
-.btn:hover{
-    transform:translateY(-3px);
-    background:#000000;
-}
-
-/* RELÓGIO */
 
 .clock{
     text-align:center;
-    font-size:28px;
-    font-weight:bold;
-    margin-bottom:50px;
+    font-size:36px;
+    font-weight:800;
+    margin-bottom:60px;
+    background: linear-gradient(45deg, #fff, #a722ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
-
-/* CARDS GERAIS */
-
-.container{
-    width:90%;
-    max-width:1200px;
-    margin:auto;
-}
-
-.glass{
-    background:rgba(255,255,255,0.08);
-    backdrop-filter:blur(15px);
-    border:1px solid rgba(255,255,255,0.1);
-    border-radius:20px;
-    padding:30px;
-    margin-bottom:40px;
-}
-
-.glass h2{
-    color:#8607db;
-    margin-bottom:15px;
-}
-
-/* ESTATÍSTICAS */
 
 .stats{
     display:flex;
     flex-wrap:wrap;
     justify-content:center;
-    gap:25px;
-    margin:50px auto;
+    gap:30px;
+    margin-bottom: 50px;
 }
 
 .stat{
-    width:260px;
+    flex: 1;
+    min-width: 260px;
+    max-width: 340px;
     text-align:center;
 }
 
 .numero{
-    font-size:42px;
-    color:#ffffff;
-    font-weight:bold;
+    font-size:52px;
+    font-weight:900;
+    color: #fffb00;
+    text-shadow: 0 0 15px rgba(255, 251, 0, 0.3);
+    margin-bottom: 8px;
 }
 
-/* ARTISTAS */
+.galeria-filtros {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 40px;
+    flex-wrap: wrap;
+}
 
-.titulo{
-    text-align:center;
-    font-size:45px;
-    margin:70px 0 40px;
+.filtro-btn {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    color: white;
+    padding: 10px 22px;
+    border-radius: 30px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.filtro-btn.active, .filtro-btn:hover {
+    background: #a722ff;
+    border-color: #b353f2;
+    box-shadow: 0 0 15px rgba(167, 34, 255, 0.4);
 }
 
 .artistas{
     display:flex;
     flex-wrap:wrap;
     justify-content:center;
-    gap:25px;
+    gap:30px;
 }
 
 .card{
-    width:280px;
-    background:rgba(255,255,255,0.08);
-    backdrop-filter:blur(15px);
-    border:1px solid rgba(255,255,255,0.1);
-    border-radius:20px;
+    width:300px;
+    background:rgba(255,255,255,0.02);
+    border:1px solid rgba(255,255,255,0.06);
+    border-radius:24px;
     overflow:hidden;
-    transition:.3s;
+    transition: all 0.4s ease;
 }
 
 .card:hover{
-    transform:translateY(-8px);
+    transform:translateY(-12px);
+    border-color: #a722ff;
+    box-shadow: 0 12px 30px rgba(167, 34, 255, 0.2);
 }
 
 .card img{
     width:100%;
-    height:250px;
+    height:260px;
     object-fit:cover;
+    cursor: pointer;
 }
 
 .card h3{
-    padding:15px;
-    color:#864c9cbd;
+    padding: 20px 20px 5px 20px;
+    color: #b353f2;
+    font-size: 22px;
 }
 
 .card p{
-    padding:0 15px 20px;
-    line-height:1.5;
+    padding: 0 20px 25px 20px;
+    opacity: 0.8;
+    font-size: 14px;
+    line-height: 1.5;
 }
 
-/* NOTÍCIAS */
+.timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    position: relative;
+}
+
+.timeline-item {
+    display: flex;
+    gap: 25px;
+    padding-bottom: 25px;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+}
+
+.timeline-date {
+    background: linear-gradient(135deg, #8607db, #a722ff);
+    padding: 8px 18px;
+    border-radius: 25px;
+    font-weight: 700;
+    font-size: 13px;
+    min-width: 130px;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(134, 7, 219, 0.3);
+}
 
 .news-box{
     text-align:center;
-    font-size:20px;
-    min-height:70px;
+    font-size:24px;
+    min-height:100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-left: 6px solid #a722ff;
+    font-style: italic;
 }
 
-/* RODAPÉ */
+/* =========================================================
+   5. ARQUITETURA DE NOVOS RECURSOS (MURAL, QUIZ, BLOG, PLAYER)
+   ========================================================= */
+.mural-interface {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 30px;
+}
+
+@media(min-width: 850px) {
+    .mural-interface { grid-template-columns: 350px 1fr; }
+}
+
+.recados-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 20px;
+    max-height: 500px;
+    overflow-y: auto;
+    padding-right: 10px;
+}
+
+.recado-card {
+    background: rgba(167, 34, 255, 0.05);
+    border: 1px solid rgba(167, 34, 255, 0.15);
+    border-radius: 16px;
+    padding: 20px;
+    position: relative;
+}
+
+.player-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    background: rgba(255,255,255,0.02);
+    padding: 25px;
+    border-radius: 20px;
+    border: 1px solid rgba(255,255,255,0.05);
+}
+
+@media(min-width: 600px) {
+    .player-container { flex-direction: row; align-items: center; }
+}
+
+.player-controls {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.play-circle {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: #a722ff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-weight: bold;
+    color: black;
+}
+
+.player-info {
+    flex-grow: 1;
+}
+
+.track-progress-container {
+    width: 100%;
+    height: 6px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 4px;
+    position: relative;
+    cursor: pointer;
+    margin-top: 8px;
+}
+
+.track-progress-bar {
+    width: 0%;
+    height: 100%;
+    background: linear-gradient(90deg, #b353f2, #f5f57b);
+    border-radius: 4px;
+    transition: width 0.1s linear;
+}
+
+.quiz-box {
+    padding: 20px 10px;
+}
+
+.quiz-option {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.06);
+    padding: 16px 20px;
+    margin: 12px 0;
+    border-radius: 12px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.quiz-option:hover {
+    background: rgba(167, 34, 255, 0.2);
+    border-color: #a722ff;
+    transform: translateX(5px);
+}
+
+.blog-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 30px;
+}
+
+.blog-post {
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(255,255,255,0.05);
+    border-radius: 20px;
+    padding: 30px;
+}
+
+.blog-meta {
+    font-size: 12px;
+    color: #f5f57b;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.blog-post h3 {
+    margin-bottom: 15px;
+    color: #b353f2;
+}
+
+.blog-likes {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 20px;
+    font-size: 13px;
+}
+
+#lightbox {
+    position: fixed;
+    top:0; left:0; width:100%; height:100%;
+    background: rgba(0,0,0,0.95);
+    backdrop-filter: blur(15px);
+    z-index: 20000;
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+#lightbox img {
+    max-width: 90%;
+    max-height: 85%;
+    border-radius: 12px;
+    box-shadow: 0 0 40px rgba(167, 34, 255, 0.3);
+}
+
+#lightbox .close-btn {
+    position: absolute;
+    top: 30px; right: 40px;
+    font-size: 40px; color: white;
+    cursor: pointer;
+}
+
+.grid-conteudo {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 25px;
+}
 
 footer{
-    margin-top:80px;
-    background:rgba(0,0,0,0.8);
+    margin-top:100px;
+    background:#040108;
     text-align:center;
-    padding:40px;
+    padding:60px 20px;
+    border-top: 1px solid rgba(255,255,255,0.04);
 }
 
-footer p{
-    margin:10px 0;
+footer p {
+    opacity: 0.6;
+    margin-top: 10px;
+    font-size: 14px;
 }
-
-/* BOTÃO TOPO */
 
 #topo{
     position:fixed;
-    right:20px;
-    bottom:20px;
-    width:50px;
-    height:50px;
+    right:30px;
+    bottom:30px;
+    width:52px;
+    height:52px;
     border:none;
     border-radius:50%;
-    background:#000000;
-    color:#87118b;
-    font-size:22px;
+    background:#a722ff;
+    color:#fff;
+    font-size:24px;
     cursor:pointer;
+    display: none;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+    z-index: 999;
 }
 
-/* RESPONSIVO */
+@media(max-width:992px){
+    .hero h1 { font-size: 70px; }
+}
 
 @media(max-width:768px){
-
-.hero h1{
-    font-size:50px;
+    .hero h1 { font-size:48px; }
+    .menu-toggle { display: flex; }
+    nav ul{
+        position: fixed;
+        top: 75px;
+        left: -100%;
+        flex-direction: column;
+        background: #06020c;
+        width: 100%;
+        height: calc(100vh - 75px);
+        padding: 40px;
+        transition: 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        gap: 20px;
+    }
+    nav ul.open { left: 0; }
 }
-
-.hero p{
-    font-size:18px;
-}
-
-nav{
-    flex-direction:column;
-    gap:15px;
-}
-
-nav ul{
-    flex-wrap:wrap;
-    justify-content:center;
-}
-
-}
-
 </style>
 </head>
 <body>
 
-<header>
-<nav>
-
-<div class="logo">Clara News 💜</div>
-
-<ul>
-<li><a href="#inicio">Início</a></li>
-<li><a href="#sobre">Sobre</a></li>
-</ul>
-
-</nav>
-</header>
-
-<section class="hero" id="inicio">
-
-<h1>Clara Moreira</h1>
-
-<p>
-Acompanhe as principais novidades sobre a Clara Moreira,
- suas maiores tendencias nas atualidades!!!
-</p>
-
-<div class="hero-btn">
-<button class="btn" onclick="window.open('https://www.instagram.com/clarasmoreira_/')">
-Instagram oficial
-</button>
+<div id="login-screen">
+    <div class="login-box">
+        <h2>Clara News 💜</h2>
+        <p style="margin-bottom:30px; opacity:0.7; font-size:14px;">Faça login para entrar no universo da Clara</p>
+        <form onsubmit="liberarAcesso(event)">
+            <div class="input-container">
+                <label>Seu Nome / Usuário</label>
+                <input type="text" placeholder="Digite qualquer nome..." required>
+            </div>
+            <div class="input-container">
+                <label>Senha de Acesso</label>
+                <input type="password" placeholder="Digite qualquer senha..." required>
+            </div>
+            <button type="submit" class="btn" style="width:100%; margin:10px 0 0 0;">Entrar no Portal</button>
+        </form>
+    </div>
 </div>
 
-</section>
+<div id="main-content">
+    
+    <header>
+        <nav>
+            <div class="logo">Clara News 💜</div>
+            <button class="menu-toggle" onclick="controleMenuMobile()">
+                <span></span><span></span><span></span>
+            </button>
+            <ul id="nav-list">
+                <li><a onclick="navegarAbas('inicio')" id="link-inicio" class="active-link">Início</a></li>
+                <li><a onclick="navegarAbas('sobre')" id="link-sobre">Sobre Ela</a></li>
+                <li><a onclick="navegarAbas('galeria')" id="link-galeria">Galeria</a></li>
+                <li><a onclick="navegarAbas('facentral')" id="link-facentral">Central do Fã</a></li>
+                <li><a onclick="navegarAbas('blog')" id="link-blog">Blog/Notícias</a></li>
+                <li><a onclick="navegarAbas('mais')" id="link-mais">Mais</a></li>
+                <li><a onclick="navegarAbas('admin')" id="link-admin" style="color:#ff4a4a; font-weight:bold;">Painel Adm</a></li>
+            </ul>
+        </nav>
+    </header>
 
-<div class="clock" id="clock"></div>
+    <div id="tab-inicio" class="tab-content active-tab">
+        <section class="hero">
+            <h1>Clara Moreira</h1>
+            <p>"Explore e acompanhar as principais novidades sobre a Clara Moreira, com fotos exclusivas, conquistas reais e atualizações de tendências no mundo moderno."</p>
+            <div class="hero-btn">
+                <button class="btn" onclick="window.open('https://www.instagram.com/clarasmoreira_/')">Acessar Instagram Oficial</button>
+            </div>
+        </section>
+        
+        <div class="clock" id="clock"></div>
+        
+        <div class="container">
+            <div class="stats">
+                <div class="glass stat"><div class="numero" id="usuarios">0</div>Acessos ao perfil</div>
+                <div class="glass stat"><div class="numero" id="musicas">0</div>Curtidas em seu perfil</div>
+                <div class="glass stat"><div class="numero" id="podcasts">0</div>Apresentações Exibidas</div>
+            </div>
 
-<div class="container">
+            <div class="glass news-box">
+                <p id="newsText"><i>Clara continua crescendo em redes sociais, e nas maiores mídias digitais.</i></p>
+            </div>
+        </div>
+    </div>
 
-<div class="glass" id="sobre">
-<h2>Um pouco sobre Clara Moreira</h2>
+    <div id="tab-sobre" class="tab-content">
+        <div class="container" style="margin-top:100px;">
+            <div class="glass">
+                <h2 style="text-align:center; color:#b353f2; margin-bottom:25px; font-size:32px;">Biografia & Essência</h2>
+                  <p style="text-align:center; line-height:1.9; font-size:18px; font-style:italic; max-width:950px; margin:auto;">
+                   Nascida em Presidente Prudente atualmente com 17 anos Clara Moreira é :
+                </p>
+                <p style="text-align:center; line-height:1.9; font-size:18px; font-style:italic; max-width:950px; margin:auto;">
+                    Considerada por muitos uma das mulheres mais belas do Brasil, sua presença naturalmente chama a atenção e 
+                    conquista olhares por onde passa. No entanto, sua verdadeira beleza vai muito além da aparência. Seu jeito 
+                    carinhoso, meigo e acolhedor aproxima as pessoas e faz com que todos ao seu redor se sintam bem.
+                </p>
+                <p style="text-align:center; line-height:1.9; font-size:18px; font-style:italic; max-width:950px; margin:auto; margin-top:20px;">
+                    Além de sua simpatia e delicadeza, demonstra humildade, respeito e um coração generoso, qualidades que a tornam uma pessoa admirável.
+                     É um grande exemplo de mulher, marcada por seu caráter genuíno.
+                </p>
+            </div>
 
-<p>
-Considerada umas das mulheres mais bonitas do Brasil, de longe sempre 
-conquistando olhares, e aproximando as pessoas com seu jeito carinhoso e meigo.
-Um grande exemplo de Mulher e de boa pessoa.
-</p>
+            <div class="glass">
+                <h2 style="margin-bottom:25px;">Linha de Conquistas </h2>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-date">Abril 2026</div>
+                        <div class="timeline-content">
+                            <p><strong>Lançamento do Portal Informativo</strong></p>
+                            <p>Desenvolvido de forma exclusiva para catalogar e registrar a jornada e conquistas digitais da Clara.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-date">Junho 2026</div>
+                        <div class="timeline-content">
+                            <p><strong>Vestibular/Faculdade</strong></p>
+                            <p>Clara passa em duas faculdades prestigiadas em sua cidade, sendo elas <i>UNOESTE</i> e a <i>TOLEDO</i>.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
+    <div id="tab-galeria" class="tab-content">
+        <div class="container" style="margin-top:100px;">
+            <h2 class="titulo">Galeria de Mídias e Fotos</h2>
+            
+            <div class="galeria-filtros">
+                <button class="filtro-btn active" onclick="filtrarGaleria('todas')">Todas as Fotos</button>
+                <button class="filtro-btn" onclick="filtrarGaleria('levi')">Desenvolvedor</button>
+            </div>
+
+            <div class="artistas" id="galeria-container">
+                <div class="card foto-item ensaios">
+                    <img src="https://i.postimg.cc/5yc70LnS/1.jpg" onclick="abrirLightbox(this.src)" alt="Na Represa">
+                    <h3>Na Represa</h3>
+                    <p>Uma foto inigualável de Clara Moreira ao entardecer!</p>
+                </div>
+                <div class="card foto-item ensaios">
+                    <img src="https://i.postimg.cc/1RJVysXG/2.jpg" onclick="abrirLightbox(this.src)" alt="RoofTop">
+                    <h3>RoofTop</h3>
+                    <p>Uma de suas noites no renomado bar em PP City.</p>
+                </div>
+                <div class="card foto-item ensaios">
+                    <img src="https://i.postimg.cc/1XHjj4rt/3.jpg" onclick="abrirLightbox(this.src)" alt="Câmera Digital">
+                    <h3>Câmera Digital</h3>
+                    <p>Clara registrando seus momentos com paz e originalidade.</p>
+                </div>
+                <div class="card foto-item ensaios">
+                    <img src="https://i.postimg.cc/kgkfwxPH/4.jpg" onclick="abrirLightbox(this.src)" alt="Estilo Modelo">
+                    <h3>Padrão Internacional</h3>
+                    <p>Uma foto tão esplêndida que supera comparações comuns.</p>
+                </div>
+                <div class="card foto-item ensaios">
+                    <img src="https://i.postimg.cc/KYDBLLGw/5.jpg" onclick="abrirLightbox(this.src)" alt="Descontraída">
+                    <h3>Descontraída</h3>
+                    <p>Considera uma de suas fotos mais bonitas e explêndidas</p>
+                </div>
+                 <div class="card foto-item levi">
+                    <img src="LINK DA FOTO" onclick="abrirLightbox(this.src)" alt="CARD 0">
+                    <h3>CARD 0</h3>
+                    <p>CARD 0</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="tab-facentral" class="tab-content">
+        <div class="container" style="margin-top:100px;">
+            <div class="glass">
+                <h2>Mural Interativo de Fãs</h2>
+                <p style="margin-bottom:20px; opacity:0.7;">Deixe mensagens permanentes registradas na tela do portal!</p>
+                <div class="mural-interface">
+                    <form onsubmit="postarMensagemMural(event)" class="mural-form">
+                        <div class="input-container">
+                            <input type="text" id="autor-nome" placeholder="Seu Nome ou Usuário" required>
+                        </div>
+                        <div class="input-container">
+                            <textarea id="autor-mensagem" placeholder="Sua Mensagem Dedicada..." rows="4" required></textarea>
+                        </div>
+                        <button type="submit" class="btn" style="margin:0; width:100%;">Enviar Mensagem</button>
+                    </form>
+                    <div class="recados-grid" id="mural-box-container"></div>
+                </div>
+            </div>
+
+            <div class="glass">
+                <h2>Quiz Interativo do Portal</h2>
+                <p style="margin-bottom:20px; opacity:0.7;">Descubra o quanto você conhece sobre os bastidores do site.</p>
+                <div class="quiz-box" id="quiz-dinamico"></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="tab-blog" class="tab-content">
+        <div class="container" style="margin-top:100px;">
+            <h2 class="titulo">Portal de Notícias & Feed</h2>
+            <div class="blog-grid">
+                <div class="blog-post glass">
+                    <div class="blog-meta">Destaques • Julho de 2026</div>
+                    <h3>Clara Moreira atinge novos recordes em mídias sociais</h3>
+                    <p>A presença digital da Clara vem quebrando barreiras. O engajamento orgânico de suas fotos recentes superou as métricas esperadas, consolidando seu nome como grande destaque regional.</p>
+                    <div class="blog-likes">
+                        <button class="btn btn-secundario" onclick="computarCurtida(1)" style="padding:6px 12px; margin:0;">❤ Curtir</button>
+                        <span id="like-count-1">342</span> curtidas
+                    </div>
+                </div>
+                <div class="blog-post glass">
+                    <div class="blog-meta">Tecnologia • 2026</div>
+                    <h3>Hoje foi confirmado atualizações na arquitetura do site Clara News</h3>
+                    <p>O desenvolvedor do portal informou hoje que o site passou por uma reestruturação de banco de dados e design completo, tornando a experiência fluida tanto para computadores quanto para celulares.</p>
+                    <div class="blog-likes">
+                        <button class="btn btn-secundario" onclick="computarCurtida(2)" style="padding:6px 12px; margin:0;">❤ Curtir</button>
+                        <span id="like-count-2">512</span> curtidas
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="tab-mais" class="tab-content">
+        <div class="container" style="margin-top:100px;">
+            <div class="glass">
+                <h2>Vibe Sonora (Player Estilizado)</h2>
+                <p style="margin-bottom:15px; opacity:0.7;">Simulação da trilha sonora oficial (TESTE)</p>
+                <div class="player-container">
+                    <div class="player-controls">
+                        <div class="play-circle" id="play-btn-control" onclick="alternarPlayerMusica()">▶</div>
+                    </div>
+                    <div class="player-info">
+                        <p style="font-weight:700;" id="player-status-text">Status: Em Espera</p>
+                        <p style="font-size:12px; opacity:0.6;">Trilha de Fundo Otimizada</p>
+                        <div class="track-progress-container" onclick="ajustarProgressoPlayer(event)">
+                            <div class="track-progress-bar" id="progresso-musical"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="glass">
+                <h2>Dicionário Autêntico: Principais Expressões</h2>
+                <div class="artistas" style="gap:20px; justify-content: flex-start; margin-top:20px;">
+                    <div class="glass" style="flex:1; min-width:250px; margin:0; padding:20px;">
+                        <p style="font-size:18px; color:#f5f57b;">&lt; yeah / yah &gt;</p>
+                        <p style="font-size:13px; opacity:0.7; margin-top:5px;">Significado: Sim / Com certeza absoluta / Óbvio.</p>
+                    </div>
+                    <div class="glass" style="flex:1; min-width:250px; margin:0; padding:20px;">
+                        <p style="font-size:18px; color:#f5f57b;">&lt; oh my god &gt;</p>
+                        <p style="font-size:13px; opacity:0.7; margin-top:5px;">Significado: Expressão de espanto, surpresa impactante.</p>
+                    </div>
+                </div>
+            </div>
+
+            <center style="margin-top:30px;">
+                <button class="btn" onclick="alert('Portal construído com foco em design e performance. Obrigado!')">Agradecimentos Oficiais</button>
+                <button class="btn btn-secundario" onclick="window.open('https://api.whatsapp.com/send/?phone=5518997930624')">Falar com Suporte Técnico</button>
+            </center>
+        </div>
+    </div>
+
+    <div id="tab-admin" class="tab-content">
+        <div class="container" style="margin-top:100px; max-width: 600px;">
+            <div class="glass" id="admin-login-form-box">
+                <h2 style="color:#ff4a4a; text-align:center; margin-bottom:10px;">Acesso Restrito 🔐</h2>
+                <p style="text-align:center; opacity:0.7; margin-bottom:25px;">Insira os dados do desenvolvedor para abrir as ferramentas.</p>
+                <form onsubmit="autenticarPainelAdmin(event)">
+                    <div class="input-container">
+                        <label>Usuário Administrador</label>
+                        <input type="text" id="adm-user" placeholder="Digite o usuário administrador..." required>
+                    </div>
+                    <div class="input-container">
+                        <label>Senha Secreta</label>
+                        <input type="password" id="adm-pass" placeholder="Digite a senha..." required>
+                    </div>
+                    <button type="submit" class="btn" style="width:100%; margin:10px 0 0 0; background:linear-gradient(135deg, #ff4a4a, #8607db); color:white;">Desbloquear Ferramentas</button>
+                </form>
+            </div>
+
+            <div class="glass" id="admin-ferramentas" style="display:none; border:2px dashed #ff4a4a;">
+                <h2 style="color:#ff4a4a; margin-bottom:10px;">🛠 Painel de Controle de Levi Lira</h2>
+                <p style="margin-bottom:25px; opacity:0.8;">Gerenciamento completo do sistema ativado com sucesso.</p>
+                <button class="btn" onclick="limparMural()" style="background:#ff4a4a; color:white; width:100%; margin:10px 0;">Deletar Todos os Recados do Mural</button>
+                <button class="btn btn-secundario" onclick="alert('Nenhum bug detectado na estrutura!')" style="width:100%; margin:10px 0;">Rodar Diagnóstico do Site</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="lightbox" onclick="fecharLightbox()">
+        <span class="close-btn">&times;</span>
+        <img id="img-lightbox-src" src="" alt="Tela Cheia">
+    </div>
+
+    <footer>
+        <h2>Clara Moreira News Portal</h2>
+        <p>© 2026 Portal Clara News • Desenvolvido com Engenharia Web </p>
+    </footer>
+
+    <button id="topo" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
 </div>
-
-<div class="stats">
-
-<div class="glass stat">
-<div class="numero" id="usuarios">0</div>
-Acesso ao perfil
-do instagram
-</div>
-
-<div class="glass stat">
-<div class="numero" id="musicas">0</div>
-Tanto de vezes que o Levi ficou saudades
-</div>
-
-<div class="glass stat">
-<div class="numero" id="podcasts">0</div>
-Apresentaçoes ja exibidas
-</div>
-
-</div>
-
-<h2 class="titulo" id="artistas">
-Top 6 Fotos Mais Lindas!!!
-</h2>
-
-<div class="artistas">
-
-<div class="card">
-<img src="https://i.postimg.cc/Gp8HSwrh/1.jpg">
-<h3>Na represa</h3>
-<p>Uma foto inigualavel de Clara Coreira em 
-    uma represa ao entardecer da noite!
-</p>
-</div>
-
-<div class="card">
-<img src="https://i.postimg.cc/85TgfMZK/2.jpg">
-<h3>RoofTop</h3>
-<p>Uma linda foto de Clara Coreira em um dos seus primeiros
-    encontros com o levi no rooftop ( um bar Renomado de 
-    PP city)!
-</p>
-</div>
-
-<div class="card">
-<img src="https://i.postimg.cc/Wz3RXjLQ/3.jpg">
-<h3>Câmera
-</h3>
-<p>Clara em uma paz tremenda tirando uma linda foto em sua câmera digital!</p>
-</div>
-
-<div class="card">
-<img src="https://i.postimg.cc/X7rS5Vg5/4.jpg">
-<h3>Uma Modelo???</h3>
-<p>A rainha da beleza, clara posta uma foto com tão linda que passa longe de compações com modelos! </p>
-</div>
-
-<div class="card">
-<img src="https://i.postimg.cc/Z5NGfV2n/5.jpg">
-<h3>Descontraída</h3>
-<p>Considera uma de suas fotos mais bonitas e explêndidas</p>
-</div>
-
-<div class="card">
-<img src="https://i.postimg.cc/PqzBHNtn/6.jpg">
-<h3>Viagem</h3>
-<p>Em uma simples viagem Clara Moreira conquista corações a propria foto</p>
-</div>
-
-<div class="card">
-<img src="https://i.postimg.cc/0j34nwCR/levi.jpg">
-<h3>Levi Lira</h3>
-<p>desenvolvedor oficial do site de Clara News</p>
-</div>
-
-</div>
-
-<h2 class="titulo" id="noticias">
-Últimas Notícias Sobre Clara Moreira
-</h2>
-
-<div class="glass news-box">
-<p id="newsText">
-Clara continua crescendo em redes socias, e nas maiores Midias.
-</p>
-</div>
-
-<center style="margin-top:40px;">
-
-<button class="btn" onclick="alert('Muito obrigado pela visita! Site desenvolvido por Levi.')">
-Agradecimentos
-</button>
-
-<button class="btn" onclick="window.open('https://api.whatsapp.com/send/?phone=5518997930624&text&type=phone_number&app_absent=0')">
-Contato/suporte ao site
-</button>
-
-</center>
-
-</div>
-
-<footer>
-
-<h2>Clara Moreira News</h2>
-
-<p>
-Portal informativo desenvolvido para apenas teste de leviiiiiii
-</p>
-
-<p>
-© 2026 Clara News • Desenvolvido por Levi
-</p>
-
-</footer>
-
-<button id="topo" onclick="window.scrollTo({top:0,behavior:'smooth'})">
-↑
-</button>
 
 <script>
-
-/* RELÓGIO */
-
-function atualizarRelogio(){
-const agora = new Date();
-
-document.getElementById("clock").innerHTML =
-" ! " + agora.toLocaleTimeString("pt-BR");
+function liberarAcesso(e) {
+    e.preventDefault();
+    document.getElementById('login-screen').style.opacity = '0';
+    document.getElementById('login-screen').style.visibility = 'hidden';
+    
+    const root = document.getElementById('main-content');
+    root.style.display = 'block';
+    setTimeout(() => {
+        root.style.opacity = '1';
+        processarContadoresDashboard();
+        carregarMensagensMural();
+        construirQuizDinamico();
+    }, 120);
 }
 
-setInterval(atualizarRelogio,1000);
-atualizarRelogio();
-
-/* CONTADORES */
-
-let usuarios=0;
-let musicas=0;
-let podcasts=0;
-
-const contador=setInterval(()=>{
-
-if(usuarios<72){
-usuarios+=2;
-document.getElementById("usuarios").innerHTML=usuarios+"K+";
+function navegarAbas(targetTab) {
+    document.querySelectorAll('.tab-content').forEach(aba => aba.classList.remove('active-tab'));
+    document.querySelectorAll('#nav-list a').forEach(link => link.classList.remove('active-link'));
+    
+    document.getElementById('tab-' + targetTab).classList.add('active-tab');
+    document.getElementById('link-' + targetTab).classList.add('active-link');
+    document.getElementById('nav-list').classList.remove('open');
+    window.scrollTo({top: 0, behavior: 'smooth'});
 }
 
-if(musicas<987){
-musicas++;
-document.getElementById("musicas").innerHTML=musicas+"K+";
+function controleMenuMobile() {
+    document.getElementById('nav-list').classList.toggle('open');
 }
 
-if(podcasts<13){
-podcasts++;
-document.getElementById("podcasts").innerHTML=podcasts+"K+";
+function processarRelogio(){
+    const data = new Date();
+    document.getElementById("clock").innerHTML = "🕒 " + data.toLocaleTimeString("pt-BR");
+}
+setInterval(processarRelogio, 1000);
+processarRelogio();
+
+function processarContadoresDashboard() {
+    let c1=0, c2=0, c3=0;
+    const crono = setInterval(() => {
+        let mudou = false;
+        if(c1 < 72){ c1+=2; document.getElementById("usuarios").innerHTML = c1 + "K+"; mudou = true; }
+        if(c2 < 987){ c2+=9; if(c2 > 987) c2 = 987; document.getElementById("musicas").innerHTML = c2 + "K+"; mudou = true; }
+        if(c3 < 13){ c3++; document.getElementById("podcasts").innerHTML = c3 + "+"; mudou = true; }
+        if(!mudou) clearInterval(crono);
+    }, 15);
 }
 
-if(usuarios>=241 && musicas>=174 && podcasts>=5){
-clearInterval(contador);
+const feedNoticias = [
+    "Clara supera recordes históricos em suas redes sociais este mês.",
+    "O portal oficial Clara News bate picos de acessos de teste.",
+    "Considerada uma das presenças mais influentes e admiráveis.",
+    "Novos módulos interativos foram adicionados hoje ao sistema ."
+];
+let ponteiroNoticia = 0;
+setInterval(() => {
+    const el = document.getElementById("newsText");
+    if(el) {
+        el.style.opacity = '0';
+        setTimeout(() => {
+            ponteiroNoticia = (ponteiroNoticia + 1) % feedNoticias.length;
+            el.innerHTML = `<i>${feedNoticias[ponteiroNoticia]}</i>`;
+            el.style.opacity = '1';
+        }, 350);
+    }
+}, 4500);
+
+function filtrarGaleria(classeAlvo) {
+    document.querySelectorAll('.galeria-filtros .filtro-btn').forEach(btn => btn.classList.remove('active'));
+    event.target.classList.add('active');
+    document.querySelectorAll('.foto-item').forEach(item => {
+        if(classeAlvo === 'todas' || item.classList.contains(classeAlvo)) item.style.display = 'block';
+        else item.style.display = 'none';
+    });
 }
 
-},20);
-
-/* NOTÍCIAS */
-
-const noticias=[
-"Clara ganha no concurso de beleza.",
-"Considerada a mulher mais bela.",
-"Conquista milhares de corações pelo brasil.",
-"Alcança a marca de 72K em suas rede sociais.",
-"LEVI/CLARA",
-]
-
-let indice=0;
-
-setInterval(()=>{
-
-indice++;
-
-if(indice>=noticias.length){
-indice=0;
+function abrirLightbox(url) {
+    document.getElementById('img-lightbox-src').src = url;
+    document.getElementById('lightbox').style.display = 'flex';
+}
+function fecharLightbox() {
+    document.getElementById('lightbox').style.display = 'none';
 }
 
-document.getElementById("newsText").innerHTML=noticias[indice];
+function postarMensagemMural(e) {
+    e.preventDefault();
+    const nome = document.getElementById('autor-nome').value;
+    const msg = document.getElementById('autor-mensagem').value;
+    const db = JSON.parse(localStorage.getItem('claranews_mural') || '[]');
+    db.push({ nome, msg });
+    localStorage.setItem('claranews_mural', JSON.stringify(db));
+    document.getElementById('autor-nome').value = '';
+    document.getElementById('autor-mensagem').value = '';
+    carregarMensagensMural();
+}
 
-},4000);
+function carregarMensagensMural() {
+    const container = document.getElementById('mural-box-container');
+    container.innerHTML = '';
+    const db = JSON.parse(localStorage.getItem('claranews_mural') || '[]');
+    if(db.length === 0) {
+        container.innerHTML = '<p style="opacity:0.5; font-size:14px;">Nenhuma mensagem enviada ainda...</p>';
+        return;
+    }
+    db.forEach(item => {
+        const div = document.createElement('div');
+        div.className = 'recado-card';
+        div.innerHTML = `<p style="font-size:14px; line-height:1.5;">"${item.msg}"</p>
+                         <span style="display:block; margin-top:10px; font-size:12px; color:#f5f57b; font-weight:700;">- por ${item.nome}</span>`;
+        container.appendChild(div);
+    });
+}
 
+/* NOVO FLUXO DO PAINEL ADMIN DIRETO NA SESSÃO */
+function autenticarPainelAdmin(e) {
+    e.preventDefault();
+    const u = document.getElementById('adm-user').value;
+    const p = document.getElementById('adm-pass').value;
+    
+    if(u === 'Levi' && p === '125229') {
+        document.getElementById('admin-login-form-box').style.display = 'none';
+        document.getElementById('admin-ferramentas').style.display = 'block';
+    } else {
+        alert("Acesso negado! Dados incorretos.");
+    }
+}
+
+function limparMural() {
+    if(confirm("Tem certeza que deseja apagar permanentemente todas as mensagens?")) {
+        localStorage.removeItem('claranews_mural');
+        carregarMensagensMural();
+        alert("Mural limpo!");
+    }
+}
+
+function computarCurtida(idPost) {
+    const el = document.getElementById(`like-count-${idPost}`);
+    el.innerText = parseInt(el.innerText) + 1;
+}
+
+const dadosQuiz = [
+    { p: "Quem projetou e programou toda a infraestrutura deste portal?", r: ["A clara", "Um sistema automatizado", "Desconhecido"], c: 0 },
+    { p: "Qual o tema central abordado no portal Clara News?", r: ["Notícias e mídias sobre Clara Moreira", "Repercussão de sua vida amorosa", "Culinária Internacional"], c: 1 },
+    { p: "Adivinha o numero que eu to pensando!", r: ["1", "2", "3", "4","5", "6", "7", "8",], c: 6 },
+    { p: "Em algum lugar do site esta escondio a o login para o painel do adm", r: ["tente", "achar"], c: 0 }
+];
+let indexPerguntaAtual = 0;
+
+function construirQuizDinamico() {
+    const box = document.getElementById('quiz-dinamico');
+    if(indexPerguntaAtual >= dadosQuiz.length) {
+        box.innerHTML = `<h3 style='color:#fffb00;'>Parabéns! Você concluiu o Quiz com sucesso! ⭐</h3>
+                         <button class='btn' onclick='reiniciarQuiz()' style='margin-top:15px;'>Jogar Novamente</button>`;
+        return;
+    }
+    const item = dadosQuiz[indexPerguntaAtual];
+    let htmlOptions = '';
+    item.r.forEach((resposta, i) => {
+        htmlOptions += `<div class='quiz-option' onclick='validarRespostaQuiz(${i})'>${resposta}</div>`;
+    });
+    box.innerHTML = `<p style='font-size:18px; font-weight:700; margin-bottom:15px;'>Pergunta ${indexPerguntaAtual+1}: ${item.p}</p> ${htmlOptions}`;
+}
+
+function validarRespostaQuiz(indexSelecionado) {
+    if(indexSelecionado === dadosQuiz[indexPerguntaAtual].c) {
+        alert("Excelente! Resposta Corretaaaaaaaaaaaaaaaaaa UHUUUL. 🎉");
+        indexPerguntaAtual++;
+        construirQuizDinamico();
+    } else {
+        alert("Resposta incorreta buRRO! Analise com cuidado e tente novamente.");
+    }
+}
+
+function reiniciarQuiz() {
+    indexPerguntaAtual = 0;
+    construirQuizDinamico();
+}
+
+let tocandoAudio = false;
+let progressoAudioLoop;
+let porcentagemProgresso = 0;
+
+function alternarPlayerMusica() {
+    const btn = document.getElementById('play-btn-control');
+    const txt = document.getElementById('player-status-text');
+    if(!tocandoAudio) {
+        tocandoAudio = true;
+        btn.innerText = "⏸";
+        txt.innerText = "Status: Reproduzindo Playlist da Clara... ";
+        progressoAudioLoop = setInterval(() => {
+            if(porcentagemProgresso >= 100) porcentagemProgresso = 0;
+            porcentagemProgresso += 0.5;
+            document.getElementById('progresso-musical').style.width = porcentagemProgresso + '%';
+        }, 100);
+    } else {
+        tocandoAudio = false;
+        btn.innerText = "▶";
+        txt.innerText = "Status: Pausado";
+        clearInterval(progressoAudioLoop);
+    }
+}
+
+function ajustarProgressoPlayer(e) {
+    porcentagemProgresso = (e.offsetX / e.currentTarget.clientWidth) * 100;
+    document.getElementById('progresso-musical').style.width = porcentagemProgresso + '%';
+}
+
+window.addEventListener('scroll', () => {
+    document.getElementById('topo').style.display = window.scrollY > 400 ? 'block' : 'none';
+});
 </script>
-
 </body>
 </html>
